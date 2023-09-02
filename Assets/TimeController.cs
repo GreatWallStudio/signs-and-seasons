@@ -7,16 +7,19 @@ public class TimeController : MonoBehaviour
 {
     [SerializeField] GameObject theEarth; 
     [SerializeField] GameObject theEarthContainer; 
+     [SerializeField] GameObject theSun;
+    [SerializeField] GameObject theMoon;
+    [SerializeField] GameObject theMoonContainer;
+    [SerializeField] GameObject theMoonPosition;   
+
     [SerializeField] Vector3 theSunRotationSpringEquinox; 
     [SerializeField] Vector3 theSunRotationSummerSolstice; 
     [SerializeField] Vector3 theSunRotationAutumnalEquinox; 
     [SerializeField] Vector3 theSunRotationWinterSolstice; 
-    [SerializeField] GameObject theSun;
-    [SerializeField] GameObject theMoon;
+
     [SerializeField] GameObject theSunLight;
     [SerializeField] GameObject theShadowLight;
-    [SerializeField] GameObject theMoonContainer;
-    [SerializeField] GameObject theMoonPosition;
+
     [SerializeField] SASUI SASuserInterface; 
 
     //[SerializeField] float timeShift;
@@ -45,8 +48,6 @@ public class TimeController : MonoBehaviour
     [SerializeField] float hour;
     [SerializeField] float day;
     [SerializeField] float week;
-    [SerializeField] int dayCounter;
-    [SerializeField] bool dayCounterTriggered;
 
     //settings 
     [SerializeField] float sunIntensity; 
@@ -69,9 +70,9 @@ public class TimeController : MonoBehaviour
         //store the solsticial and equinoctial position of earth...
         //these are the angles of the sun's rotation in degrees
         theSunRotationSpringEquinox = theSun.transform.localEulerAngles;  
-        theSunRotationSummerSolstice.y = theSun.transform.localEulerAngles.y + 90;  
+        theSunRotationSummerSolstice.y = theSun.transform.localEulerAngles.y + 270;  
         theSunRotationAutumnalEquinox.y = theSun.transform.localEulerAngles.y + 180; 
-        theSunRotationWinterSolstice.y = theSun.transform.localEulerAngles.y + 270; 
+        theSunRotationWinterSolstice.y = theSun.transform.localEulerAngles.y + 90; 
 
 
         //this is the angle the earth rotates around its axis
@@ -95,10 +96,6 @@ public class TimeController : MonoBehaviour
         day = 24 * earthAroundSunAngleInHour;
         week = 7 * earthAroundSunAngleInDay;
 
-        //count days
-        dayCounter = 0;
-        dayCounterTriggered = false;
-
         //settings
         sunLight = theSunLight.GetComponent<Light>();
         shadowLight = theShadowLight.GetComponent<Light>();
@@ -106,16 +103,6 @@ public class TimeController : MonoBehaviour
         shadowSideIntensity = 5; 
         sunLight.intensity = sunIntensity;
         shadowLight.intensity = shadowSideIntensity; 
-
-        //rateOfTime.Add("Second");
-        //rateOfTime.Add("minute");
-        //rateOfTime.Add("hour");
-        //rateOfTime.Add("day");
-        //rateOfTime.Add("month");
-        //rateOfTime.Add("year");
-        //rateOfTime.Add("centery");
-        //rateOfTime.Add("millenium");
-        //timeShift = _MONTH; 
     }
 
 // Update is called once per frame
@@ -143,47 +130,28 @@ void Update()
         //set the position of the moon but leave its rotation alone 
         theMoon.transform.SetPositionAndRotation(theMoonPosition.transform.position, theMoon.transform.rotation);
 
-        ////counting days: 1 day for each degree
-        ////day will be counted at one degree into the next day
-        ////day will be displayed at 2 degrees into the next day
-        //int days = (int)Mathf.Floor(theEarth.transform.eulerAngles.y);
-
-        ////when the earth is back to zero degrees, reset triggered flag 
-        //if(days==0 && dayCounterTriggered)
-        //{
-        //    dayCounterTriggered = false; 
-        //}
-
-        ////when earth gets to one, add a day to the day counter
-        //if (days > 0 && !dayCounterTriggered)
-        //{
-        //    dayCounter++;
-        //    dayCounterTriggered = true;
-
-        //    //update UI
-        //    SASuserInterface.updateDaysDisplay(dayCounter);
-        //}
-
+        //update the day counter
         SASuserInterface.updateDaysDisplay(359 - (int) Mathf.Floor(theSun.transform.eulerAngles.y));
 
-        //float earthRotationDegreesPerSecond = -1f / 365;
-        //float sunRotationDegreesPerSecond = earthRotationDegreesPerSecond; 
-        //float moonRotationDegreesPerSecond = earthRotationDegreesPerSecond / _MONTH; 
-
-        //    theEarth.transform.Rotate(0, earthRotationDegreesPerSecond * timeShift, 0);
-        //theSun.transform.Rotate(0, sunRotationDegreesPerSecond * timeShift, 0); 
-        //theMoon.transform.Rotate(0, moonRotationDegreesPerSecond * timeShift, 0); 
     }
 
     public void gotoSeason(string season)
     {
-        if (season == "Spring Solstice")
+        if (season == "Vernal Equinox")
         {
             theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationSpringEquinox));
         }
         if (season == "Summer Solstice")
         {
+            theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationSummerSolstice));
+        }
+        if (season == "Autumnal Equinox")
+        {
             theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationAutumnalEquinox));
+        }
+        if (season == "Winter Solstice")
+        {
+            theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationWinterSolstice));
         }
     }
 }
