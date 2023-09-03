@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class TimeController : MonoBehaviour
 {
+    [SerializeField] GameObject theZodiac; 
     [SerializeField] GameObject theEarth; 
     [SerializeField] GameObject theEarthContainer; 
      [SerializeField] GameObject theSun;
@@ -28,12 +29,23 @@ public class TimeController : MonoBehaviour
 
     //this is the angle the earth moves around the sun  ...in one year
     [SerializeField] float timeMultiplier;
+
+    [SerializeField] float greatYearAngle;
+    [SerializeField] float ageAngle;
+    [SerializeField] float precessionYearsPerDegree;
+    [SerializeField] float precessionOfTheSunAngleInYear;
+    [SerializeField] float precessionOfTheSunAngleInDay;
+    [SerializeField] float precessionOfTheSunAngleInHour;
+    [SerializeField] float precessionOfTheSunAngleInMinute;
+    [SerializeField] float precessionOfTheSunAngleInSecond;
+
     [SerializeField] float earthAroundSunAngleInYear;
     [SerializeField] float earthAroundSunAngleInMonth;
     [SerializeField] float earthAroundSunAngleInDay;
     [SerializeField] float earthAroundSunAngleInHour;
     [SerializeField] float earthAroundSunAngleInMinute;
     [SerializeField] float earthAroundSunAngleInSecond;
+
     [SerializeField] float earthRotationAngleInDay;
     [SerializeField] float earthRotationAngleInHour;
     [SerializeField] float earthRotationAngleInMinute;
@@ -58,6 +70,15 @@ public class TimeController : MonoBehaviour
 
     void Start()
     {
+        //this is the precession of the equinoxes - one full rotation in 25,800 years
+        greatYearAngle = -360;
+        ageAngle = greatYearAngle / 12;
+        precessionYearsPerDegree = 25800 / 360;
+        precessionOfTheSunAngleInYear = greatYearAngle / 25800;
+        precessionOfTheSunAngleInDay = precessionOfTheSunAngleInYear / 360;
+        precessionOfTheSunAngleInHour = precessionOfTheSunAngleInDay / 24;
+        precessionOfTheSunAngleInMinute = precessionOfTheSunAngleInHour / 60;
+        precessionOfTheSunAngleInSecond = precessionOfTheSunAngleInMinute / 60; 
 
         //this is the angle the earth revolves around the sun  
         earthAroundSunAngleInYear = -360;                               // ...in one year
@@ -73,7 +94,6 @@ public class TimeController : MonoBehaviour
         theSunRotationSummerSolstice.y = theSun.transform.localEulerAngles.y + 270;  
         theSunRotationAutumnalEquinox.y = theSun.transform.localEulerAngles.y + 180; 
         theSunRotationWinterSolstice.y = theSun.transform.localEulerAngles.y + 90; 
-
 
         //this is the angle the earth rotates around its axis
         earthRotationAngleInDay = -360;
@@ -114,6 +134,9 @@ void Update()
 
         //time in seconds since the start of the game
         second = Time.fixedUnscaledTime;
+
+        //this rotates the zodiac, which rotates the zodiac's position
+        theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0); 
         
         //this rotates the sun, which rotates the earth's position
         theSun.transform.Rotate(0, earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
@@ -132,6 +155,16 @@ void Update()
 
         //update the day counter
         SASuserInterface.updateDaysDisplay(359 - (int) Mathf.Floor(theSun.transform.eulerAngles.y));
+
+        //update the year counter - this is klugey fer shur
+        if (theZodiac.transform.eulerAngles.y < 0.008f)
+        {
+            SASuserInterface.updateYearsDisplay(0);
+        }
+        else
+        {
+            SASuserInterface.updateYearsDisplay(25800 - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree)));
+        }
 
     }
 
