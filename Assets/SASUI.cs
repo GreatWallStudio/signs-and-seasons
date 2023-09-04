@@ -7,6 +7,7 @@ public class SASUI : MonoBehaviour
 {
     [SerializeField] TMP_Text displayDaysEllapsed;
     [SerializeField] TMP_Text displayYearsEllapsed;
+    [SerializeField] TMP_Text displayHMSEllapsed;
     [SerializeField] int daysEllapsedValue;
 
     void Start()
@@ -27,5 +28,9 @@ public class SASUI : MonoBehaviour
     public void updateDaysDisplay(int CountOfDays)
     {
         displayDaysEllapsed.SetText("Days: " + CountOfDays.ToString());
+    }
+    public void updateHoursDisplay(string hms)
+    {
+        displayHMSEllapsed.SetText($"Hour: {hms}");
     }
 }

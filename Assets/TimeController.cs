@@ -5,10 +5,16 @@ using UnityEngine.UIElements;
 
 public class TimeController : MonoBehaviour
 {
+
+    [SerializeField] GameObject sliderObject;
+    [SerializeField] Slider sliderComponent;
+    [SerializeField] float sliderValue; 
+    
     [SerializeField] GameObject theZodiac; 
-    [SerializeField] GameObject theEarth; 
+    [SerializeField] GameObject theEarth;
+    [SerializeField] Quaternion theEarthOrigRotation; 
     [SerializeField] GameObject theEarthContainer; 
-     [SerializeField] GameObject theSun;
+    [SerializeField] GameObject theSun;
     [SerializeField] GameObject theMoon;
     [SerializeField] GameObject theMoonContainer;
     [SerializeField] GameObject theMoonPosition;   
@@ -60,6 +66,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] float hour;
     [SerializeField] float day;
     [SerializeField] float week;
+    [SerializeField] string hh;
 
     //settings 
     [SerializeField] float sunIntensity; 
@@ -87,6 +94,7 @@ public class TimeController : MonoBehaviour
         earthAroundSunAngleInHour = earthAroundSunAngleInDay / 25;      // ...in one hour
         earthAroundSunAngleInMinute = earthAroundSunAngleInHour / 60;   // ...in one minute
         earthAroundSunAngleInSecond = earthAroundSunAngleInMinute / 60; // ...in one second
+        theEarthOrigRotation = theEarth.transform.rotation; 
 
         //store the solsticial and equinoctial position of earth...
         //these are the angles of the sun's rotation in degrees
@@ -122,12 +130,21 @@ public class TimeController : MonoBehaviour
         sunIntensity = 14;
         shadowSideIntensity = 5; 
         sunLight.intensity = sunIntensity;
-        shadowLight.intensity = shadowSideIntensity; 
+        shadowLight.intensity = shadowSideIntensity;
+
+
+        //sliderComponent = sliderObject.GetComponent<Slider>(); 
+        //sliderComponent = GameObject.Find("TimeSlider").GetComponent<Slider>(); 
+
+        //sliderValue = GameObject.Find("TimeSlider").GetComponent<Slider>();
+        //sliderValue = sliderComponent.value; 
     }
 
 // Update is called once per frame
 void Update()
     {
+        //timeMultiplier = 1 * Mathf.Exp(sliderComponent.value);
+
         //settings
         sunLight.intensity = sunIntensity;
         shadowLight.intensity = shadowSideIntensity;
@@ -136,16 +153,19 @@ void Update()
         second = Time.fixedUnscaledTime;
 
         //this rotates the zodiac, which rotates the zodiac's position
-        theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0); 
-        
+        theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
+
         //this rotates the sun, which rotates the earth's position
-        theSun.transform.Rotate(0, earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
+        float earthRevolutionAmount = earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime; 
+        theSun.transform.Rotate(0, earthRevolutionAmount, 0);
 
         //set the position of the earth but leave its rotation alone
-        theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, theEarth.transform.rotation); 
+        theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, theEarth.transform.rotation);
 
         //this rotates the earth around its axis
-        theEarth.transform.Rotate(0, earthRotationAngleInSeconds * timeMultiplier * Time.deltaTime, 0);
+        float earthRotationAmount = earthRevolutionAmount * 360; 
+        theEarth.transform.Rotate(0, earthRotationAmount, 0);
+        //theEarth.transform.Rotate(0, earthRotationAngleInSeconds * timeMultiplier * Time.deltaTime, 0);
 
         //rotate the moons container
         theMoonContainer.transform.Rotate(0, moonAroundEarthAngleInSecond * timeMultiplier * Time.deltaTime, 0);
@@ -155,6 +175,18 @@ void Update()
 
         //update the day counter
         SASuserInterface.updateDaysDisplay(359 - (int) Mathf.Floor(theSun.transform.eulerAngles.y));
+
+        //update the hour, minute, second counter
+        if (theEarth.transform.eulerAngles.y > 0 ) {
+            hh = (24 - (int)Mathf.Round(theEarth.transform.eulerAngles.y) / 15).ToString();
+        } else
+        {
+            hh = "1"; 
+        }
+        //mm = (3500 - (int)Mathf.Round(theEarth.transform.eulerAngles.y)/(0.1f)).ToString();
+        //ss = "00"; 
+
+        SASuserInterface.updateHoursDisplay(hh);
 
         //update the year counter - this is klugey fer shur
         if (theZodiac.transform.eulerAngles.y < 0.008f)
@@ -166,6 +198,13 @@ void Update()
             SASuserInterface.updateYearsDisplay(25800 - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree)));
         }
 
+    }
+
+    public void setTimeMultiplier (System.Single sliderValue)
+    {
+        //sliderValue = sliderComponent.value;
+        timeMultiplier = 10 * Mathf.Exp(sliderValue); 
+        Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
     }
 
     public void gotoSeason(string season)
@@ -186,5 +225,6 @@ void Update()
         {
             theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationWinterSolstice));
         }
+        theEarth.transform.SetPositionAndRotation(new Vector3(theEarth.transform.position.x, theEarth.transform.position.y, theEarth.transform.position.z), theEarthOrigRotation);  
     }
 }
