@@ -43,12 +43,10 @@ public class SettingsManager : MonoBehaviour
     public void setSunBrightness(System.Single sliderValue)
     {
         theSunLight.intensity = sliderValue;
-        Debug.Log($"sun intensity sliderValue = {sliderValue}");
     }
     public void setShadowBrightness(System.Single sliderValue)
     {
         theShadowLight.intensity = sliderValue;
-        Debug.Log($"shadow intensity sliderValue = {sliderValue}");
     }
 
     public void toggleEquatorialPlane()
