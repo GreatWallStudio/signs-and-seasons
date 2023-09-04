@@ -24,8 +24,6 @@ public class TimeController : MonoBehaviour
     [SerializeField] Vector3 theSunRotationAutumnalEquinox; 
     [SerializeField] Vector3 theSunRotationWinterSolstice; 
 
-    [SerializeField] GameObject theSunLight;
-    [SerializeField] GameObject theShadowLight;
 
     [SerializeField] SASUI SASuserInterface; 
 
@@ -67,13 +65,6 @@ public class TimeController : MonoBehaviour
     [SerializeField] float day;
     [SerializeField] float week;
     [SerializeField] string hh;
-
-    //settings 
-    [SerializeField] float sunIntensity; 
-    [SerializeField] float shadowSideIntensity; 
-    Light sunLight; 
-    Light shadowLight; 
-
 
     void Start()
     {
@@ -124,15 +115,6 @@ public class TimeController : MonoBehaviour
         day = 24 * earthAroundSunAngleInHour;
         week = 7 * earthAroundSunAngleInDay;
 
-        //settings
-        sunLight = theSunLight.GetComponent<Light>();
-        shadowLight = theShadowLight.GetComponent<Light>();
-        sunIntensity = 14;
-        shadowSideIntensity = 5; 
-        sunLight.intensity = sunIntensity;
-        shadowLight.intensity = shadowSideIntensity;
-
-
         //uiTimeElementsInitialTransform = uITimeElements.transform; 
         //sliderComponent = sliderObject.GetComponent<Slider>(); 
         //sliderComponent = GameObject.Find("TimeSlider").GetComponent<Slider>(); 
@@ -145,10 +127,6 @@ public class TimeController : MonoBehaviour
 void Update()
     {
         //timeMultiplier = 1 * Mathf.Exp(sliderComponent.value);
-
-        //settings
-        sunLight.intensity = sunIntensity;
-        shadowLight.intensity = shadowSideIntensity;
 
         //time in seconds since the start of the game
         second = Time.fixedUnscaledTime;
@@ -203,16 +181,8 @@ void Update()
 
     public void setTimeMultiplier (System.Single sliderValue)
     {
-        //sliderValue = sliderComponent.value; exponential time slider from day scale to ages
         timeMultiplier = 10 * Mathf.Exp(sliderValue); 
         Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
-        //uITimeElements.transform.SetPositionAndRotation(new Vector3(uITimeElements.transform.position.x - (sliderValue/4), uITimeElements.transform.position.y, uITimeElements.transform.position.z), uITimeElements.transform.rotation);
-//        uITimeElements.transform.SetPositionAndRotation(new Vector3(uITimeElements.transform.position.x - (sliderValue/4), uITimeElements.transform.position.y, uITimeElements.transform.position.z), uITimeElements.transform.rotation);
-        //int offset = 15;
-        //uITimeElements.transform.localPosition = Vector3.Lerp(uiTimeElementsInitialTransform.transform.position,
-        //    uiTimeElementsEndingTransform.transform.position, 
-        //    (sliderValue - 6) / 15);
-        //Debug.Log((sliderValue-6)/15); 
     }
 
     public void gotoSeason(string season)
