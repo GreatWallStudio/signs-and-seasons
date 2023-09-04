@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] Transform yearCameraPosition; 
     //[SerializeField] Transform monthCameraPosition; 
     [SerializeField] Transform dayCameraTransform;
+    [SerializeField] Transform seasonCameraTransform;
     //[SerializeField] GameObject menuGameObject;
     //[SerializeField] int camMoveSpeed;
     //private string activeCamera;
@@ -17,7 +18,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         //start from the day camera position
-        transform.position = dayCameraTransform.position; 
+        transform.SetPositionAndRotation(dayCameraTransform.position, dayCameraTransform.rotation);
         //cameraIsMoving = false;
         //t = 0; 
     }
@@ -32,6 +33,10 @@ public class CameraManager : MonoBehaviour
         if(cameraChangedTo == "Age")
         {
             transform.SetPositionAndRotation(ageCameraTransform.position, ageCameraTransform.rotation);
+        }
+        if(cameraChangedTo == "Season")
+        {
+            transform.SetPositionAndRotation(seasonCameraTransform.position, seasonCameraTransform.rotation);
         }
         if(cameraChangedTo == "Day")
         {
