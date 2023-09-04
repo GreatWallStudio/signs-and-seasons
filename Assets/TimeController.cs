@@ -7,9 +7,9 @@ public class TimeController : MonoBehaviour
 {
 
     [SerializeField] GameObject sliderObject;
-    [SerializeField] Slider sliderComponent;
-    [SerializeField] float sliderValue; 
-    
+     [SerializeField] Slider sliderComponent;
+    [SerializeField] float sliderValue;
+    [SerializeField] GameObject uITimeElements; 
     [SerializeField] GameObject theZodiac; 
     [SerializeField] GameObject theEarth;
     [SerializeField] Quaternion theEarthOrigRotation; 
@@ -133,6 +133,7 @@ public class TimeController : MonoBehaviour
         shadowLight.intensity = shadowSideIntensity;
 
 
+        //uiTimeElementsInitialTransform = uITimeElements.transform; 
         //sliderComponent = sliderObject.GetComponent<Slider>(); 
         //sliderComponent = GameObject.Find("TimeSlider").GetComponent<Slider>(); 
 
@@ -202,9 +203,16 @@ void Update()
 
     public void setTimeMultiplier (System.Single sliderValue)
     {
-        //sliderValue = sliderComponent.value;
+        //sliderValue = sliderComponent.value; exponential time slider from day scale to ages
         timeMultiplier = 10 * Mathf.Exp(sliderValue); 
         Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
+        //uITimeElements.transform.SetPositionAndRotation(new Vector3(uITimeElements.transform.position.x - (sliderValue/4), uITimeElements.transform.position.y, uITimeElements.transform.position.z), uITimeElements.transform.rotation);
+//        uITimeElements.transform.SetPositionAndRotation(new Vector3(uITimeElements.transform.position.x - (sliderValue/4), uITimeElements.transform.position.y, uITimeElements.transform.position.z), uITimeElements.transform.rotation);
+        //int offset = 15;
+        //uITimeElements.transform.localPosition = Vector3.Lerp(uiTimeElementsInitialTransform.transform.position,
+        //    uiTimeElementsEndingTransform.transform.position, 
+        //    (sliderValue - 6) / 15);
+        //Debug.Log((sliderValue-6)/15); 
     }
 
     public void gotoSeason(string season)
