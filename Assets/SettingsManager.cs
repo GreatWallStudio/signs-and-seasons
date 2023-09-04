@@ -6,6 +6,7 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] Light theSunLight; 
     [SerializeField] Light theShadowLight;
+    [SerializeField] GameObject equatorialPlaneGameObject;
 
     //[SerializeField] GameObject theSunLightGO;
     //[SerializeField] GameObject theShadowLightGO;
@@ -27,7 +28,8 @@ public class SettingsManager : MonoBehaviour
         //shadowLight.intensity = shadowSideIntensity;
 
         theSunLight.intensity = 8; 
-        theShadowLight.intensity = 3; 
+        theShadowLight.intensity = 3;
+        equatorialPlaneGameObject.active = true; 
     }
 
     // Update is called once per frame
@@ -47,5 +49,10 @@ public class SettingsManager : MonoBehaviour
     {
         theShadowLight.intensity = sliderValue;
         Debug.Log($"shadow intensity sliderValue = {sliderValue}");
+    }
+
+    public void toggleEquatorialPlane()
+    {
+        equatorialPlaneGameObject.active = !equatorialPlaneGameObject.activeSelf;
     }
 }
