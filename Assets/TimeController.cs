@@ -27,10 +27,6 @@ public class TimeController : MonoBehaviour
 
     [SerializeField] SASUI SASuserInterface; 
 
-    //[SerializeField] float timeShift;
-    //private float _MONTH = 27.3215277777777778f; 
-    //[SerializeField] List<string> rateOfTime = new List<string>();
-
     //this is the angle the earth moves around the sun  ...in one year
     [SerializeField] float timeMultiplier;
 
@@ -53,17 +49,17 @@ public class TimeController : MonoBehaviour
     [SerializeField] float earthRotationAngleInDay;
     [SerializeField] float earthRotationAngleInHour;
     [SerializeField] float earthRotationAngleInMinute;
-    [SerializeField] float earthRotationAngleInSeconds;
+    //[SerializeField] float earthRotationAngleInSeconds;
     [SerializeField] float moonAroundEarthAngleInMonth;
     [SerializeField] float moonAroundEarthAngleInDay;
     [SerializeField] float moonAroundEarthAngleInHour;
     [SerializeField] float moonAroundEarthAngleInMinute;
     [SerializeField] float moonAroundEarthAngleInSecond;
-    [SerializeField] float second;
-    [SerializeField] float minute;
-    [SerializeField] float hour;
-    [SerializeField] float day;
-    [SerializeField] float week;
+    //[SerializeField] float second;
+    //[SerializeField] float minute;
+    //[SerializeField] float hour;
+    //[SerializeField] float day;
+    //[SerializeField] float week;
     [SerializeField] string hh;
 
     void Start()
@@ -98,7 +94,7 @@ public class TimeController : MonoBehaviour
         earthRotationAngleInDay = -360;
         earthRotationAngleInHour = earthRotationAngleInDay / 24;
         earthRotationAngleInMinute = earthRotationAngleInHour / 60;
-        earthRotationAngleInSeconds = earthRotationAngleInMinute / 60;
+        //earthRotationAngleInSeconds = earthRotationAngleInMinute / 60;
 
         //this is the angle the moon revolves around the earth 
         moonAroundEarthAngleInMonth = -360;//(27 * earthAroundSunAngleInDay) + (7 * earthAroundSunAngleInHour) + (43 * earthAroundSunAngleInMinute);
@@ -107,20 +103,13 @@ public class TimeController : MonoBehaviour
         moonAroundEarthAngleInMinute = moonAroundEarthAngleInHour / 60;
         moonAroundEarthAngleInSecond = moonAroundEarthAngleInMinute / 60; 
 
-        //time is defined since start of game
-        //time in seconds since the start of the game
-        second = Time.fixedUnscaledTime;
-        minute = 60 * second;
-        hour = 60 * minute;
-        day = 24 * earthAroundSunAngleInHour;
-        week = 7 * earthAroundSunAngleInDay;
-
-        //uiTimeElementsInitialTransform = uITimeElements.transform; 
-        //sliderComponent = sliderObject.GetComponent<Slider>(); 
-        //sliderComponent = GameObject.Find("TimeSlider").GetComponent<Slider>(); 
-
-        //sliderValue = GameObject.Find("TimeSlider").GetComponent<Slider>();
-        //sliderValue = sliderComponent.value; 
+        ////time is defined since start of game
+        ////time in seconds since the start of the game
+        //second = Time.fixedUnscaledTime;
+        //minute = 60 * second;
+        //hour = 60 * minute;
+        //day = 24 * earthAroundSunAngleInHour;
+        //week = 7 * earthAroundSunAngleInDay;
     }
 
 // Update is called once per frame
@@ -128,8 +117,8 @@ void Update()
     {
         //timeMultiplier = 1 * Mathf.Exp(sliderComponent.value);
 
-        //time in seconds since the start of the game
-        second = Time.fixedUnscaledTime;
+        ////time in seconds since the start of the game
+        //second = Time.fixedUnscaledTime;
 
         //this rotates the zodiac, which rotates the zodiac's position
         theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
@@ -142,6 +131,7 @@ void Update()
         theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, theEarth.transform.rotation);
 
         //this rotates the earth around its axis
+        //one time for every degree the earth revolves around the sun
         float earthRotationAmount = earthRevolutionAmount * 360; 
         theEarth.transform.Rotate(0, earthRotationAmount, 0);
         //theEarth.transform.Rotate(0, earthRotationAngleInSeconds * timeMultiplier * Time.deltaTime, 0);
@@ -187,6 +177,9 @@ void Update()
 
     public void gotoSeason(string season)
     {
+        //the earth's position is a child of the sun.
+        //By rotating the sun to 90 degree intervals,
+        //the earth's position moves to the solsticial and equinoctial points
         if (season == "Vernal Equinox")
         {
             theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(theSunRotationSpringEquinox));
