@@ -9,16 +9,17 @@ public class SASUI : MonoBehaviour
     [SerializeField] TMP_Text displayYearsEllapsed;
     [SerializeField] TMP_Text displayHMSEllapsed;
     [SerializeField] int daysEllapsedValue;
+    [SerializeField] GameObject menu; 
+    [SerializeField] GameObject toggleMenuOn; 
+    [SerializeField] PanelManager panelManager; 
 
     void Start()
     {
+        //initialize the days display
         displayDaysEllapsed.SetText(daysEllapsedValue.ToString());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        
+        //start with the menu off toggle hidden
+        toggleMenuOn.SetActive(false); 
     }
 
     public void updateYearsDisplay(int CountOfYears)
