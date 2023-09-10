@@ -17,8 +17,8 @@ public class DialogUI : MonoBehaviour
     //private AudioSource soundSource;
     private IEnumerator indexCoroutine;
     private int dialogIndex;
-    private bool _autoMode = false;
-    private bool _dramaStarted = false;
+    private bool _autoMode = true;
+    private bool _dramaStarted = true;
     private bool _pauseForNPCAudio = false;
     private bool _pauseForAnimation = false;
     private bool _pauseForPlayerAudio = false;
@@ -69,10 +69,10 @@ public class DialogUI : MonoBehaviour
             PreviousDialog(); 
         }
 
-        Debug.Log($"<color=green>automode In update() before conditional. _autoMode {_autoMode}, dialogIndex {dialogIndex}," +
-            $" _pauseForActionVM {_pauseForActionVM} _pauseForActionSW {_pauseForActionSW} _pauseForActionJW {_pauseForActionJW} " +
-            $"_pauseForActionCH {_pauseForActionCH} _pauseForActionPR {_pauseForActionPR} _pauseForActionC {_pauseForActionC} " +
-            $"_dramaStarted {_dramaStarted}, and _pauseForAudio {_pauseForNPCAudio}. </color>");
+        //Debug.Log($"<color=green>automode In update() before conditional. _autoMode {_autoMode}, dialogIndex {dialogIndex}," +
+            //$" _pauseForActionVM {_pauseForActionVM} _pauseForActionSW {_pauseForActionSW} _pauseForActionJW {_pauseForActionJW} " +
+            //$"_pauseForActionCH {_pauseForActionCH} _pauseForActionPR {_pauseForActionPR} _pauseForActionC {_pauseForActionC} " +
+            //$"_dramaStarted {_dramaStarted}, and _pauseForAudio {_pauseForNPCAudio}. </color>");
 
         //Auto Advance when forward button pressed, auto mode is on, a sound isn't starting or already playing
         if (_dramaStarted && _autoMode && !_pauseForActionVM && !_pauseForActionSW && !_pauseForActionJW && !_pauseForActionCH &&
@@ -80,7 +80,7 @@ public class DialogUI : MonoBehaviour
             // && !candidate.soundSource.isPlaying)
         {
             // Start function WaitAndIndex as a coroutine.
-            indexCoroutine = WaitAndIndex(1f);
+            indexCoroutine = WaitAndIndex(.25f);
             StartCoroutine(indexCoroutine);
         }
     }
@@ -92,9 +92,16 @@ public class DialogUI : MonoBehaviour
 //         Debug.Log($"<color=green>automode In WaitAndIndex coroutine. set _pauseForAudio = true. </color>");
            yield return new WaitForSeconds(waitTime);
             _pauseForNPCAudio = false;
-        //UpdateDialogUI(dialogIndex);
+        if (dialogIndex == data.Count)
+        {
+            Debug.Log("Script is over... setting _dramaStarted = false");
+            _dramaStarted = false;
+        }
+        else
+        {
+            UpdateDialogUI(dialogIndex);
+        }
 //        Debug.Log($"<color=green>automode In WaitAndIndex coroutine. set _pauseForAudio = false. </color>");
-
     }
     
     public void turnAutoModeOn()
@@ -145,6 +152,7 @@ public class DialogUI : MonoBehaviour
     private void UpdateDialogUI(int dialogIndex)
     {
         Debug.Log($"Actions - at the beginning of UpdateDialog(). dialogIndex = {dialogIndex}");
+
         //at the beginning there should be no previous dialog
         if (dialogIndex > 0)
         {
@@ -159,7 +167,10 @@ public class DialogUI : MonoBehaviour
 
         //show the current line of dialog
         //dialogCurrent.text = "" + data[dialogIndex]["line"];
-        Debug.Log($" {data[dialogIndex]["line"]}"); 
+        Debug.Log($" id: {data[dialogIndex]["id"]}"); 
+        Debug.Log($" line: {data[dialogIndex]["line"]}"); 
+        Debug.Log($" type: {data[dialogIndex]["type"]}"); 
+        Debug.Log($" audio: {data[dialogIndex]["audio"]}"); 
 
         //audio dialog section
         if (data[dialogIndex]["type"].ToString() == "Dialog")

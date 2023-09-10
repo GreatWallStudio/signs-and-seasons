@@ -1,49 +1,9 @@
 ﻿id,line,type,audio,
-0,1. Day,Splash,,//text to be displayed on splash screen
-1,EarthRotation,Prop,,//GameObject to be shown
-2,DayCameraPosition,Camera,,//transform where camera should move to
-3,,Start,,//initialization complete. Ready to start when loading complete
-4,"In 1 day, the Earth rotates 360° on its axis.",Dialog,,//text and audio for presentation
-5, One rotation takes 24 hours.,Dialog,,
-6,,Input,,//mechanism for assessment
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-92,[end of script],Action,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-,,,,
-78,,,,
+0,1. Day,Splash,1,//text to be displayed on splash screen
+1,EarthRotation,Prop,2,//GameObject to be shown
+2,DayCameraPosition,Camera,3,//transform where camera should move to
+3,,Start,4,//initialization complete. Ready to start when loading complete
+4,"In 1 day, the Earth rotates 360° on its axis.",Dialog,5,//text and audio for presentation
+5, One rotation takes 24 hours.,Dialog,6,
+6,,Input,7,//mechanism for assessment
+7,[end of script],,,

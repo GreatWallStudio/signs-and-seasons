@@ -5,9 +5,8 @@ using UnityEngine.UIElements;
 
 public class TimeController : MonoBehaviour
 {
-
     [SerializeField] GameObject sliderObject;
-     [SerializeField] Slider sliderComponent;
+    [SerializeField] Slider sliderComponent;
     [SerializeField] float sliderValue;
     [SerializeField] GameObject uITimeElements; 
     [SerializeField] GameObject theZodiac; 
