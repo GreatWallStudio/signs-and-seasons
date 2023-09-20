@@ -28,6 +28,7 @@ public class CameraManager : MonoBehaviour
     {
         //store the camera's current transform
         activeCameraTransform = this.transform;
+        //Camera.main.orthographic = false;
 
         //t value for lerps and loop
         float t = 0;
@@ -64,6 +65,7 @@ public class CameraManager : MonoBehaviour
     {
         //store the camera's current transform
         activeCameraTransform = this.transform;
+        //Camera.main.orthographic = true;
 
         //t value for lerps and loop
         float t = 0;

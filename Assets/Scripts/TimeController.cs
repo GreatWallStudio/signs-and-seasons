@@ -61,6 +61,11 @@ public class TimeController : MonoBehaviour
     //[SerializeField] float week;
     [SerializeField] string hh;
 
+    GameObject springEquinoxEarth; 
+    GameObject summerSolsticeEarth; 
+    GameObject autumnalEquinoxEarth; 
+    GameObject winterSolsticeEarth; 
+
     void Start()
     {
         //this is the precession of the equinoxes - one full rotation in 25,800 years
@@ -84,7 +89,8 @@ public class TimeController : MonoBehaviour
 
         //store the solsticial and equinoctial position of earth...
         //these are the angles of the sun's rotation in degrees
-        theSunRotationSpringEquinox = theSun.transform.localEulerAngles;  
+        //theSunRotationSpringEquinox = theSun.transform.localEulerAngles;  
+        theSunRotationSpringEquinox.y = theSun.transform.localEulerAngles.y + 20;  
         theSunRotationSummerSolstice.y = theSun.transform.localEulerAngles.y + 270;  
         theSunRotationAutumnalEquinox.y = theSun.transform.localEulerAngles.y + 180; 
         theSunRotationWinterSolstice.y = theSun.transform.localEulerAngles.y + 90; 
@@ -100,7 +106,7 @@ public class TimeController : MonoBehaviour
         moonAroundEarthAngleInDay = moonAroundEarthAngleInMonth / 30;
         moonAroundEarthAngleInHour = moonAroundEarthAngleInDay / 24;
         moonAroundEarthAngleInMinute = moonAroundEarthAngleInHour / 60;
-        moonAroundEarthAngleInSecond = moonAroundEarthAngleInMinute / 60; 
+        moonAroundEarthAngleInSecond = moonAroundEarthAngleInMinute / 60;
 
         ////time is defined since start of game
         ////time in seconds since the start of the game
@@ -109,6 +115,7 @@ public class TimeController : MonoBehaviour
         //hour = 60 * minute;
         //day = 24 * earthAroundSunAngleInHour;
         //week = 7 * earthAroundSunAngleInDay;
+        instantiateSeasonalEarths();
     }
 
 // Update is called once per frame
@@ -129,10 +136,46 @@ void Update()
         //set the position of the earth but leave its rotation alone
         theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, theEarth.transform.rotation);
 
+        //when the earth gets to the equinoctial and solsticial points, show the hidden earths at those positions
+        //eventually make this controlled by a button 
+        Debug.Log(theEarthContainer.transform.position);
+        if (Mathf.Round(theEarthContainer.transform.position.x) == -15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
+        {
+            summerSolsticeEarth.SetActive(true);
+        }
+        if (Mathf.Round(theEarthContainer.transform.position.x) == 0 && Mathf.Round(theEarthContainer.transform.position.z) == -15)
+        {
+            autumnalEquinoxEarth.SetActive(true);
+        }
+        if (Mathf.Round(theEarthContainer.transform.position.x) == 15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
+        {
+            winterSolsticeEarth.SetActive(true);
+        }
+
+
         //this rotates the earth around its axis
         //one time for every degree the earth revolves around the sun
         float earthRotationAmount = earthRevolutionAmount * 360; 
         theEarth.transform.Rotate(0, earthRotationAmount, 0);
+
+        //once the solsticial and equinoctial earths are visible, make them spin
+        if (springEquinoxEarth != null)
+        {
+            springEquinoxEarth.transform.Rotate(0, earthRotationAmount, 0); 
+        }
+        if (summerSolsticeEarth != null)
+        {
+            summerSolsticeEarth.transform.Rotate(0, earthRotationAmount, 0); 
+        }
+        if (autumnalEquinoxEarth != null)
+        {
+            autumnalEquinoxEarth.transform.Rotate(0, earthRotationAmount, 0); 
+        }
+        if (winterSolsticeEarth != null)
+        {
+            winterSolsticeEarth.transform.Rotate(0, earthRotationAmount, 0); 
+        }
+
         //theEarth.transform.Rotate(0, earthRotationAngleInSeconds * timeMultiplier * Time.deltaTime, 0);
 
         //rotate the moons container
@@ -166,6 +209,21 @@ void Update()
             SASuserInterface.updateYearsDisplay(25800 - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree)));
         }
 
+    }
+
+    public void instantiateSeasonalEarths()
+    {
+        springEquinoxEarth = GameObject.Instantiate(theEarth);
+        summerSolsticeEarth = GameObject.Instantiate(theEarth);
+        autumnalEquinoxEarth = GameObject.Instantiate(theEarth);
+        winterSolsticeEarth = GameObject.Instantiate(theEarth);
+        springEquinoxEarth.transform.position = new Vector3(0, 0, 15);
+        summerSolsticeEarth.transform.position = new Vector3(-15, 0, 0);
+        autumnalEquinoxEarth.transform.position = new Vector3(0, 0, -15);
+        winterSolsticeEarth.transform.position = new Vector3(15, 0, 0);
+        summerSolsticeEarth.SetActive(false);
+        autumnalEquinoxEarth.SetActive(false);
+        winterSolsticeEarth.SetActive(false);
     }
 
     public void setTimeMultiplier (System.Single sliderValue)
