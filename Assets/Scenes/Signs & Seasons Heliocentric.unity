@@ -2570,6 +2570,14 @@ MonoBehaviour:
   moonAroundEarthAngleInSecond: 0
   hh: 
   perpLine: {fileID: 867848486}
+  perpMatSpringEquinox: {fileID: 2100000, guid: f2d3bb2cbda56bc48bb2fdc8b5011db4,
+    type: 2}
+  perpMatSummerSolstice: {fileID: 2100000, guid: db7d760526cfb0144af4923f610a1f0a,
+    type: 2}
+  perpMatAutumnalEquinox: {fileID: 2100000, guid: 9393c681c3bbf8b479ecb7e0e42c9ef4,
+    type: 2}
+  perpMatWinterSolstice: {fileID: 2100000, guid: 9df48c9b058834340a9b9983f798f6c2,
+    type: 2}
 --- !u!224 &362252674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22400002, guid: 212619aea848509449704f41e4a1d3f2,
@@ -2660,7 +2668,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 1
