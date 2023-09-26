@@ -64,7 +64,13 @@ public class TimeController : MonoBehaviour
     GameObject springEquinoxEarth; 
     GameObject summerSolsticeEarth; 
     GameObject autumnalEquinoxEarth; 
-    GameObject winterSolsticeEarth; 
+    GameObject winterSolsticeEarth;
+    [SerializeField] GameObject perpLine;
+    private GameObject springEquinoxPerpLine;
+    private GameObject summerSolsticePerpLine;
+    private GameObject autumnalEquinoxPerpLine;
+    private GameObject winterSolsticePerpLine;
+
 
     void Start()
     {
@@ -142,14 +148,17 @@ void Update()
         if (Mathf.Round(theEarthContainer.transform.position.x) == -15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
         {
             summerSolsticeEarth.SetActive(true);
+            summerSolsticePerpLine.SetActive(true); 
         }
         if (Mathf.Round(theEarthContainer.transform.position.x) == 0 && Mathf.Round(theEarthContainer.transform.position.z) == -15)
         {
             autumnalEquinoxEarth.SetActive(true);
+            autumnalEquinoxPerpLine.SetActive(true); 
         }
         if (Mathf.Round(theEarthContainer.transform.position.x) == 15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
         {
             winterSolsticeEarth.SetActive(true);
+            winterSolsticePerpLine.SetActive(true); 
         }
 
 
@@ -217,10 +226,36 @@ void Update()
         summerSolsticeEarth = GameObject.Instantiate(theEarth);
         autumnalEquinoxEarth = GameObject.Instantiate(theEarth);
         winterSolsticeEarth = GameObject.Instantiate(theEarth);
+        springEquinoxPerpLine = GameObject.Instantiate(perpLine); 
+        summerSolsticePerpLine = GameObject.Instantiate(perpLine); 
+        autumnalEquinoxPerpLine = GameObject.Instantiate(perpLine); 
+        winterSolsticePerpLine = GameObject.Instantiate(perpLine); 
+
         springEquinoxEarth.transform.position = new Vector3(0, 0, 15);
         summerSolsticeEarth.transform.position = new Vector3(-15, 0, 0);
         autumnalEquinoxEarth.transform.position = new Vector3(0, 0, -15);
         winterSolsticeEarth.transform.position = new Vector3(15, 0, 0);
+
+        springEquinoxPerpLine.transform.position = new Vector3(0, 0, 7.5f);
+        springEquinoxPerpLine.transform.localScale = new Vector3(1.71f, 1.71f, 1f); 
+        springEquinoxPerpLine.transform.rotation = Quaternion.Euler(90, -90, 0); 
+
+        summerSolsticePerpLine.transform.position = new Vector3(-7.5f, 0, 0);
+        summerSolsticePerpLine.transform.localScale = new Vector3(1.71f, 1.71f, 1f);
+        summerSolsticePerpLine.transform.rotation = Quaternion.Euler(90, 180, 0);
+
+        autumnalEquinoxPerpLine.transform.position = new Vector3(0, 0, -7.5f);
+        autumnalEquinoxPerpLine.transform.localScale = new Vector3(1.71f, 1.71f, 1f);
+        autumnalEquinoxPerpLine.transform.rotation = Quaternion.Euler(90, 0, -90);
+
+        winterSolsticePerpLine.transform.position = new Vector3(7.5f, 0, 0);
+        winterSolsticePerpLine.transform.localScale = new Vector3(1.71f, 1.71f, 1f);
+        winterSolsticePerpLine.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        summerSolsticePerpLine.SetActive(false);
+        autumnalEquinoxPerpLine.SetActive(false);
+        winterSolsticePerpLine.SetActive(false);
+
         summerSolsticeEarth.SetActive(false);
         autumnalEquinoxEarth.SetActive(false);
         winterSolsticeEarth.SetActive(false);

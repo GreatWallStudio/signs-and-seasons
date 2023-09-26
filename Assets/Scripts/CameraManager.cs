@@ -9,16 +9,37 @@ public class CameraManager : MonoBehaviour
     //[SerializeField] Transform monthCameraPosition; 
     [SerializeField] Transform dayCameraTransform;
     [SerializeField] Transform seasonCameraTransform;
-    private Transform activeCameraTransform; 
+    private Transform activeCameraTransform;
+    private string cameraPositon; 
+    private bool movingCamera; 
 
     void Start()
     {
         //start from the day camera position
         transform.SetPositionAndRotation(dayCameraTransform.position, dayCameraTransform.rotation);
+        cameraPositon = "Season";
+        movingCamera = true; 
+    }
+
+    private void Update()
+    {
+        if (movingCamera)
+        {
+            if (cameraPositon == "Age") { 
+
+            }
+            if (cameraPositon == "Season") {
+                transform.SetPositionAndRotation(seasonCameraTransform.transform.position, seasonCameraTransform.transform.rotation);
+            }
+            if (cameraPositon == "Day") { 
+                
+            }
+        }
     }
 
     public void changeCameraPosition(string newCameraPos)
     {
+        movingCamera = false; 
         if(newCameraPos == "Age")       { StartCoroutine(MoveCameraToAge()); }
         if (newCameraPos == "Season")   { StartCoroutine(MoveCameraToSeason()); }
         if(newCameraPos == "Day")       { StartCoroutine(MoveCameraToDay()); }
@@ -42,7 +63,10 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
+        cameraPositon = "Day";
+        movingCamera = true; 
     }
+    
     IEnumerator MoveCameraToSeason()
     {
         //store the camera's current transform
@@ -60,7 +84,10 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
+        cameraPositon = "Season";
+        movingCamera = true;
     }
+    
     IEnumerator MoveCameraToAge()
     {
         //store the camera's current transform
@@ -79,8 +106,9 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
+        cameraPositon = "Age";
+        movingCamera = true;
     }
-
 
 }
  
