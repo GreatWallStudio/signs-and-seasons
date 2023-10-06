@@ -12,7 +12,11 @@ public class SASUI : MonoBehaviour
     [SerializeField] GameObject menu; 
     [SerializeField] GameObject toggleMenuOn; 
     [SerializeField] PanelManager panelManager;
-    
+
+    [SerializeField] GameObject upperButtonScrollLimit;  
+    [SerializeField] GameObject lowerButtonScrollLimit;  
+    [SerializeField] GameObject bottomButton;  
+    [SerializeField] GameObject topButton;  
     [SerializeField] GameObject movingMenu;  
     [SerializeField] float movingUp;  
     [SerializeField] float movingDown;  
@@ -63,14 +67,17 @@ public class SASUI : MonoBehaviour
 
     private void Update()
     {
-        if (movingUp != 0)
+        Debug.Log($"bottomButton.transform.position.y = {bottomButton.transform.position.y} & " +
+            $"lowerButtonScrollLimit.transform.position.y = {lowerButtonScrollLimit.transform.position.y- 70}"); 
+
+        if (movingUp != 0 && bottomButton.transform.position.y < lowerButtonScrollLimit.transform.position.y + 40  )
         {
             movingMenu.transform.SetPositionAndRotation(new Vector3(movingMenu.transform.position.x,
                                                 movingMenu.transform.position.y + movingUp,
                                                 movingMenu.transform.position.z),
                                                 movingMenu.transform.rotation);
         }
-        if (movingDown != 0)
+        if (movingDown != 0 && topButton.transform.position.y > upperButtonScrollLimit.transform.position.y - 40)
         {
             movingMenu.transform.SetPositionAndRotation(new Vector3(movingMenu.transform.position.x,
                                                 movingMenu.transform.position.y - movingDown,
