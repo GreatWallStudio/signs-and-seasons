@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &227104940
 Transform:
   m_ObjectHideFlags: 0
@@ -333,11 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c3c705d2643ab459171fe1c84b7001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theEarthContainer: {fileID: 0}
-  theSunOrbit: {fileID: 0}
-  theMoonOrbit: {fileID: 0}
-  timeShift: 0
-  rateOfTime: []
 --- !u!4 &361919068
 Transform:
   m_ObjectHideFlags: 0
@@ -351,7 +346,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362694005
 GameObject:
@@ -376,15 +371,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362694005}
-  m_LocalRotation: {x: -0, y: -0, z: 0.39874914, w: 0.9170601}
-  m_LocalPosition: {x: 0, y: 0, z: -6.9}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalRotation: {x: -0, y: -0, z: 0.20364177, w: 0.97904545}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 604950688}
   - {fileID: 2145097762}
-  m_Father: {fileID: 1619577295}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.5}
 --- !u!1 &604950684
 GameObject:
@@ -482,6 +477,7 @@ Transform:
   m_Children:
   - {fileID: 1267449209}
   - {fileID: 227104940}
+  - {fileID: 1619577295}
   m_Father: {fileID: 362694006}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -678,8 +674,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1849926766}
-  - {fileID: 362694006}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 604950688}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849926764
@@ -972,7 +967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2145097762
 Transform:
   m_ObjectHideFlags: 0

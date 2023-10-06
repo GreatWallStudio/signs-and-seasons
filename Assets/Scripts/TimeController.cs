@@ -10,6 +10,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] float sliderValue;
     [SerializeField] GameObject uITimeElements; 
     [SerializeField] GameObject theZodiac; 
+    [SerializeField] GameObject theZodiac2; 
     [SerializeField] GameObject theEarth;
     [SerializeField] Quaternion theEarthOrigRotation; 
     [SerializeField] GameObject theEarthContainer; 
@@ -98,12 +99,12 @@ public class TimeController : MonoBehaviour
         earthAroundSunAngleInHour = earthAroundSunAngleInDay / 25;      // ...in one hour
         earthAroundSunAngleInMinute = earthAroundSunAngleInHour / 60;   // ...in one minute
         earthAroundSunAngleInSecond = earthAroundSunAngleInMinute / 60; // ...in one second
-        theEarthOrigRotation = theEarth.transform.rotation; 
+        theEarthOrigRotation = theEarth.transform.rotation;
 
         //store the solsticial and equinoctial position of earth...
         //these are the angles of the sun's rotation in degrees
-        //theSunRotationSpringEquinox = theSun.transform.localEulerAngles;  
-        theSunRotationSpringEquinox.y = theSun.transform.localEulerAngles.y + 20;  
+        theSunRotationSpringEquinox = theSun.transform.localEulerAngles;
+        //theSunRotationSpringEquinox.y = theSun.transform.localEulerAngles.y + 20;   //back it up a bit for recording
         theSunRotationSummerSolstice.y = theSun.transform.localEulerAngles.y + 270;  
         theSunRotationAutumnalEquinox.y = theSun.transform.localEulerAngles.y + 180; 
         theSunRotationWinterSolstice.y = theSun.transform.localEulerAngles.y + 90; 
@@ -128,7 +129,9 @@ public class TimeController : MonoBehaviour
         //hour = 60 * minute;
         //day = 24 * earthAroundSunAngleInHour;
         //week = 7 * earthAroundSunAngleInDay;
-        instantiateSeasonalEarths();
+
+        //make 4 earths at the equinoxes and solstices
+        //instantiateSeasonalEarths();
     }
 
 // Update is called once per frame
@@ -141,6 +144,7 @@ void Update()
 
         //this rotates the zodiac, which rotates the zodiac's position
         theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
+        theZodiac2.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
 
         //this rotates the sun, which rotates the earth's position
         float earthRevolutionAmount = earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime; 
@@ -151,22 +155,22 @@ void Update()
 
         //when the earth gets to the equinoctial and solsticial points, show the hidden earths at those positions
         //eventually make this controlled by a button 
-        Debug.Log(theEarthContainer.transform.position);
-        if (Mathf.Round(theEarthContainer.transform.position.x) == -15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
-        {
-            summerSolsticeEarth.SetActive(true);
-            perpLineSummerSolstice.SetActive(true); 
-        }
-        if (Mathf.Round(theEarthContainer.transform.position.x) == 0 && Mathf.Round(theEarthContainer.transform.position.z) == -15)
-        {
-            autumnalEquinoxEarth.SetActive(true);
-            perpLineAutumnalEquinox.SetActive(true); 
-        }
-        if (Mathf.Round(theEarthContainer.transform.position.x) == 15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
-        {
-            winterSolsticeEarth.SetActive(true);
-            perpLineWinterSolstice.SetActive(true); 
-        }
+        //Debug.Log(theEarthContainer.transform.position);
+        //if (Mathf.Round(theEarthContainer.transform.position.x) == -15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
+        //{
+        //    summerSolsticeEarth.SetActive(true);
+        //    perpLineSummerSolstice.SetActive(true); 
+        //}
+        //if (Mathf.Round(theEarthContainer.transform.position.x) == 0 && Mathf.Round(theEarthContainer.transform.position.z) == -15)
+        //{
+        //    autumnalEquinoxEarth.SetActive(true);
+        //    perpLineAutumnalEquinox.SetActive(true); 
+        //}
+        //if (Mathf.Round(theEarthContainer.transform.position.x) == 15 && Mathf.Round(theEarthContainer.transform.position.z) == 0)
+        //{
+        //    winterSolsticeEarth.SetActive(true);
+        //    perpLineWinterSolstice.SetActive(true); 
+        //}
 
 
         //this rotates the earth around its axis

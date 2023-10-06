@@ -11,7 +11,11 @@ public class SASUI : MonoBehaviour
     [SerializeField] int daysEllapsedValue;
     [SerializeField] GameObject menu; 
     [SerializeField] GameObject toggleMenuOn; 
-    [SerializeField] PanelManager panelManager; 
+    [SerializeField] PanelManager panelManager;
+    
+    [SerializeField] GameObject movingMenu;  
+    [SerializeField] float movingUp;  
+    [SerializeField] float movingDown;  
 
     void Start()
     {
@@ -19,7 +23,11 @@ public class SASUI : MonoBehaviour
         displayDaysEllapsed.SetText(daysEllapsedValue.ToString());
         
         //start with the menu off toggle hidden
-        toggleMenuOn.SetActive(false); 
+        toggleMenuOn.SetActive(false);
+
+        movingUp = 0;
+        movingDown = 0;
+
     }
 
     public void updateYearsDisplay(int CountOfYears)
@@ -33,5 +41,41 @@ public class SASUI : MonoBehaviour
     public void updateHoursDisplay(string hms)
     {
         displayHMSEllapsed.SetText($"Hour: {hms}");
+    }
+    public void moveMenuUp(float speed)
+    {
+        movingUp = speed; 
+
+    }
+    public void stopMoveMenuUp()
+    {
+        movingUp = 0;
+    }
+    public void moveMenuDown(float speed)
+    {
+        movingDown = speed; 
+
+    }
+    public void stopMoveMenuDown()
+    {
+        movingDown = 0;
+    }
+
+    private void Update()
+    {
+        if (movingUp != 0)
+        {
+            movingMenu.transform.SetPositionAndRotation(new Vector3(movingMenu.transform.position.x,
+                                                movingMenu.transform.position.y + movingUp,
+                                                movingMenu.transform.position.z),
+                                                movingMenu.transform.rotation);
+        }
+        if (movingDown != 0)
+        {
+            movingMenu.transform.SetPositionAndRotation(new Vector3(movingMenu.transform.position.x,
+                                                movingMenu.transform.position.y - movingDown,
+                                                movingMenu.transform.position.z),
+                                                movingMenu.transform.rotation);
+        }
     }
 }
