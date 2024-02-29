@@ -7,6 +7,7 @@ public class SASUI : MonoBehaviour
 {
     [SerializeField] TMP_Text displayDaysEllapsed;
     [SerializeField] TMP_Text displayYearsEllapsed;
+    [SerializeField] TMP_Text displayAgesEllapsed;
     [SerializeField] TMP_Text displayHMSEllapsed;
     [SerializeField] int daysEllapsedValue;
     [SerializeField] GameObject menu; 
@@ -34,6 +35,10 @@ public class SASUI : MonoBehaviour
 
     }
 
+    public void updateAgeDisplay(int CountOfAges)
+    {
+        displayAgesEllapsed.SetText("Ages: " + CountOfAges.ToString());
+    }
     public void updateYearsDisplay(int CountOfYears)
     {
         displayYearsEllapsed.SetText("Years: " + CountOfYears.ToString());

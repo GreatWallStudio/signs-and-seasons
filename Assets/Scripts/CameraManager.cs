@@ -46,24 +46,24 @@ public class CameraManager : MonoBehaviour
     public void changeCameraPosition(string newCameraPos)
     {
         movingCamera = false; 
-        if(newCameraPos == "1")       { 
+        if(newCameraPos == "Age")       { 
             StartCoroutine(MoveCameraToAge());
             Camera.main.orthographicSize = 10;
         }
-        if (newCameraPos == "2")      { 
-            StartCoroutine(MoveCameraToSeason());
+        if (newCameraPos == "Overhead")      { 
+            StartCoroutine(MoveCameraToOverhead());
             Camera.main.orthographicSize = 10;
         }
-        if(newCameraPos == "3")       { 
+        if(newCameraPos == "Day")       { 
             StartCoroutine(MoveCameraToDay());
             Camera.main.orthographicSize = 10;
         }
-        if(newCameraPos == "4")       { 
-            StartCoroutine(MoveCameraToGeocentric());
+        if(newCameraPos == "Season")       { 
+            StartCoroutine(MoveCameraToSeason());
             Camera.main.orthographicSize = 4;
         }
-        if(newCameraPos == "5")       { 
-            StartCoroutine(MoveCameraToOverhead());
+        if(newCameraPos == "Geocentric")       { 
+            StartCoroutine(MoveCameraToGeocentric());
             Camera.main.orthographicSize = 18;
         }
     }
