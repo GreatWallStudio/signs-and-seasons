@@ -31,6 +31,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] float timeMultiplier;
 
     [SerializeField] int greatYear;
+    [SerializeField] int age;
     [SerializeField] float greatYearAngle;
     [SerializeField] float ageAngle;
     [SerializeField] float precessionYearsPerDegree;
@@ -85,8 +86,9 @@ public class TimeController : MonoBehaviour
     {
         //this is the precession of the equinoxes - one full rotation in 25,800 years
         greatYearAngle = -360;
-        ageAngle = greatYearAngle / 12;
         greatYear = 25800;
+        ageAngle = greatYearAngle / 12;
+        age = 2150; 
         precessionYearsPerDegree = greatYear / 360;
         precessionOfTheSunAngleInYear = greatYearAngle / greatYear;
         precessionOfTheSunAngleInDay = precessionOfTheSunAngleInYear / 360;
@@ -234,7 +236,8 @@ void Update()
             SASuserInterface.updateYearsDisplay(year);
 
             //always is zero.  See comment 3 lines above
-            SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year / greatYear));
+            //SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year / greatYear));
+            SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year/age)) ; 
         }
 
     }
