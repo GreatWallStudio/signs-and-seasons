@@ -9,6 +9,7 @@ public class SASUI : MonoBehaviour
     [SerializeField] TMP_Text displayYearsEllapsed;
     [SerializeField] TMP_Text displayAgesEllapsed;
     [SerializeField] TMP_Text displayHMSEllapsed;
+    [SerializeField] TMP_Text displayAgeName;
     [SerializeField] int daysEllapsedValue;
     [SerializeField] GameObject menu; 
     [SerializeField] GameObject toggleMenuOn; 
@@ -51,6 +52,9 @@ public class SASUI : MonoBehaviour
     {
         displayHMSEllapsed.SetText($"Hour: {hms}");
     }
+    public void updateAgeNameDisplay(string age) {
+        displayAgeName.SetText($"Age of {age}");
+            }
     public void moveMenuUp(float speed)
     {
         movingUp = speed; 

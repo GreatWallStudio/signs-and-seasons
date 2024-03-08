@@ -235,7 +235,8 @@ void Update()
         if (theZodiac.transform.eulerAngles.y < 0.008f)
         {
             SASuserInterface.updateYearsDisplay(0);
-            SASuserInterface.updateAgeDisplay(0); 
+            SASuserInterface.updateAgeDisplay(1); 
+            SASuserInterface.updateAgeNameDisplay("Aries"); 
         }
         else
         {
@@ -243,9 +244,26 @@ void Update()
             year = greatYear - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree));
             SASuserInterface.updateYearsDisplay(year);
 
+            int ageCalc = (int)Mathf.Floor(year / age)+1; 
             //always is zero.  See comment 3 lines above
             //SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year / greatYear));
-            SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year/age)) ; 
+            SASuserInterface.updateAgeDisplay(ageCalc) ;
+            string ageName = "";
+
+            if (ageCalc == 1) { ageName = "Aries"; }
+            if (ageCalc == 2) { ageName = "Pisces"; }
+            if (ageCalc == 3) { ageName = "Aquarius"; }
+            if (ageCalc == 4) { ageName = "Capricorn"; }
+            if (ageCalc == 5) { ageName = "Sagitarius"; }
+            if (ageCalc == 6) { ageName = "Scorpio"; }
+            if (ageCalc == 7) { ageName = "Libra"; }
+            if (ageCalc == 8) { ageName = "Virgo"; }
+            if (ageCalc == 9) { ageName = "Leo"; }
+            if (ageCalc == 10) { ageName = "Cancer"; }
+            if (ageCalc == 11) { ageName = "Gemini"; }
+            if (ageCalc == 12) { ageName = "Taurus"; }
+            
+            SASuserInterface.updateAgeNameDisplay(ageName);
         }
 
     }

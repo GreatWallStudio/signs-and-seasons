@@ -43,7 +43,7 @@ public class SettingsManager : MonoBehaviour
         zodiacalBeltGameObject2.SetActive(false);
         zodiacalBeltGameObject3.SetActive(false);
         zodiacalBeltGameObject4.SetActive(false);
-        zodiacalBeltGameObject5.SetActive(false);
+        zodiacalBeltGameObject5.SetActive(true);
 
         //set initial sun and shadow brightnesses
         theSunLight.intensity = 8; 

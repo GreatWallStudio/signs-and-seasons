@@ -19,25 +19,26 @@ public class CameraManager : MonoBehaviour
     {
         //start from the day camera position
         transform.SetPositionAndRotation(dayCameraTransform.position, dayCameraTransform.rotation);
-        cameraPositon = "3";
+        cameraPositon = "Overhead";
+        transform.SetPositionAndRotation(overheadCameraTransform.transform.position, overheadCameraTransform.transform.rotation);
         movingCamera = false;
-        movingCameraSwitch = false; 
+        movingCameraSwitch = false;
     }
 
     private void Update()
     {
         if (movingCamera)
         {
-            if (cameraPositon == "1") {
+            if (cameraPositon == "Age") {
                 transform.SetPositionAndRotation(ageCameraTransform.transform.position, ageCameraTransform.transform.rotation);
             }
-            if (cameraPositon == "2") {
+            if (cameraPositon == "Season") {
                 transform.SetPositionAndRotation(seasonCameraTransform.transform.position, seasonCameraTransform.transform.rotation);
             }
-            if (cameraPositon == "3") {
+            if (cameraPositon == "Day") {
                 transform.SetPositionAndRotation(dayCameraTransform.transform.position, dayCameraTransform.transform.rotation);
             }
-            if (cameraPositon == "4") {
+            if (cameraPositon == "Geocentric") {
                 transform.SetPositionAndRotation(geocentricCameraTransform.transform.position, geocentricCameraTransform.transform.rotation);
             }
         }
@@ -86,7 +87,7 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
-        cameraPositon = "1";
+        cameraPositon = "Age";
         movingCamera = movingCameraSwitch;
     }
 
@@ -107,7 +108,7 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
-        cameraPositon = "2";
+        cameraPositon = "Season";
         movingCamera = movingCameraSwitch;
     }
     
@@ -129,7 +130,7 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
-        cameraPositon = "3";
+        cameraPositon = "Day";
         movingCamera = movingCameraSwitch;
     }
     IEnumerator MoveCameraToGeocentric()
@@ -150,7 +151,7 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
-        cameraPositon = "4";
+        cameraPositon = "Geocentric";
         movingCamera = movingCameraSwitch;
     }
     IEnumerator MoveCameraToOverhead()
@@ -171,7 +172,7 @@ public class CameraManager : MonoBehaviour
             t = t + .01f;
         }
         activeCameraTransform = this.transform;
-        cameraPositon = "5";
+        cameraPositon = "Overhead";
         movingCamera = movingCameraSwitch;
     }
 
