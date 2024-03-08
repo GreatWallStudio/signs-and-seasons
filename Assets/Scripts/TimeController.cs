@@ -30,9 +30,13 @@ public class TimeController : MonoBehaviour
     //this is the angle the earth moves around the sun  ...in one year
     [SerializeField] float timeMultiplier;
 
+    [SerializeField] int year;
+    [SerializeField] int targetYear;
     [SerializeField] int greatYear;
     [SerializeField] int age;
     [SerializeField] float greatYearAngle;
+    [SerializeField] float targetEarthAngle; 
+    [SerializeField] float targetZodiacAngle; 
     [SerializeField] float ageAngle;
     [SerializeField] float precessionYearsPerDegree;
     [SerializeField] float precessionOfTheSunAngleInYear;
@@ -84,12 +88,16 @@ public class TimeController : MonoBehaviour
 
     void Start()
     {
+        year = 0;
+        targetYear = 1000;
+        targetEarthAngle = 0; 
+        targetZodiacAngle = 0; 
         //this is the precession of the equinoxes - one full rotation in 25,800 years
         greatYearAngle = -360;
         greatYear = 25800;
-        ageAngle = greatYearAngle / 12;
+        ageAngle = -30; // greatYearAngle / 12;
         age = 2150; 
-        precessionYearsPerDegree = greatYear / 360;
+        precessionYearsPerDegree = greatYear / 360;  //71.66666666666667
         precessionOfTheSunAngleInYear = greatYearAngle / greatYear;
         precessionOfTheSunAngleInDay = precessionOfTheSunAngleInYear / 360;
         precessionOfTheSunAngleInHour = precessionOfTheSunAngleInDay / 24;
@@ -232,7 +240,7 @@ void Update()
         else
         {
             //resets to zero years at the end of each great year 
-            int year = greatYear - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree));
+            year = greatYear - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree));
             SASuserInterface.updateYearsDisplay(year);
 
             //always is zero.  See comment 3 lines above
@@ -317,4 +325,21 @@ void Update()
         }
         theEarth.transform.SetPositionAndRotation(new Vector3(theEarth.transform.position.x, theEarth.transform.position.y, theEarth.transform.position.z), theEarthOrigRotation);  
     }
+
+    public void goToYear()
+    {
+        Debug.Log("target year");
+        Debug.Log("target Year: " + targetYear);
+        // 1000 years
+        // 1000 / 71.66666666666667 
+        // = 13.95348837209302  //this many degrees at 1000 years
+
+        targetEarthAngle = targetYear / precessionYearsPerDegree;
+        targetZodiacAngle = targetYear / precessionYearsPerDegree;
+        
+        //theSunRotationSpringEquinox = theSun.transform.localEulerAngles;
+        theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(0f, targetEarthAngle, 0f));
+        
+        theZodiac.transform.SetPositionAndRotation(theZodiac.transform.position, Quaternion.Euler(0f, targetZodiacAngle, 0f));
+     }
 }
