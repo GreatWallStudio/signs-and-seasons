@@ -94,9 +94,11 @@ public class TimeController : MonoBehaviour
         targetZodiacAngle = 0; 
         //this is the precession of the equinoxes - one full rotation in 25,800 years
         greatYearAngle = -360;
-        greatYear = 25800;
+        //greatYear = 25800;
+        greatYear = 25560;
         ageAngle = -30; // greatYearAngle / 12;
-        age = 2150; 
+        //age = 2150; 
+        age = 2130; 
         precessionYearsPerDegree = greatYear / 360;  //71.66666666666667
         precessionOfTheSunAngleInYear = greatYearAngle / greatYear;
         precessionOfTheSunAngleInDay = precessionOfTheSunAngleInYear / 360;
@@ -144,6 +146,10 @@ public class TimeController : MonoBehaviour
 
         //make 4 earths at the equinoxes and solstices
         //instantiateSeasonalEarths();
+
+        SASuserInterface.updateYearsDisplay(0);
+        SASuserInterface.updateAgeDisplay(1);
+        SASuserInterface.updateAgeNameDisplay("Aries");
     }
 
 // Update is called once per frame
@@ -231,23 +237,12 @@ void Update()
 
         SASuserInterface.updateHoursDisplay(hh);
 
-        //update the year counter - this is klugey fer shur
         if (theZodiac.transform.eulerAngles.y < 0.008f)
-        {
-            SASuserInterface.updateYearsDisplay(0);
-            SASuserInterface.updateAgeDisplay(1); 
-            SASuserInterface.updateAgeNameDisplay("Aries"); 
-        }
-        else
-        {
-            //resets to zero years at the end of each great year 
-            year = greatYear - 241 - (int)Mathf.Floor(((theZodiac.transform.eulerAngles.y) * precessionYearsPerDegree));
-            SASuserInterface.updateYearsDisplay(year);
-
-            int ageCalc = (int)Mathf.Floor(year / age)+1; 
+        { 
+            int ageCalc = (int)Mathf.Floor(year / age) + 1;
             //always is zero.  See comment 3 lines above
             //SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year / greatYear));
-            SASuserInterface.updateAgeDisplay(ageCalc) ;
+            SASuserInterface.updateAgeDisplay(ageCalc);
             string ageName = "";
 
             if (ageCalc == 1) { ageName = "Aries"; }
@@ -262,9 +257,11 @@ void Update()
             if (ageCalc == 10) { ageName = "Cancer"; }
             if (ageCalc == 11) { ageName = "Gemini"; }
             if (ageCalc == 12) { ageName = "Taurus"; }
-            
+
             SASuserInterface.updateAgeNameDisplay(ageName);
         }
+
+        SASuserInterface.updateYearsDisplay(year);
 
     }
 
@@ -344,20 +341,31 @@ void Update()
         theEarth.transform.SetPositionAndRotation(new Vector3(theEarth.transform.position.x, theEarth.transform.position.y, theEarth.transform.position.z), theEarthOrigRotation);  
     }
 
-    public void goToYear()
+    public void goToYear(float targetYear)
     {
-        Debug.Log("target year");
-        Debug.Log("target Year: " + targetYear);
+        Debug.Log("targetYear: " + targetYear + "precessionYearsPerDegree:" + precessionYearsPerDegree + "targetZodiacAngle:" + targetZodiacAngle);
         // 1000 years
         // 1000 / 71.66666666666667 
         // = 13.95348837209302  //this many degrees at 1000 years
 
         targetEarthAngle = targetYear / precessionYearsPerDegree;
-        targetZodiacAngle = targetYear / precessionYearsPerDegree;
+        targetZodiacAngle = (targetYear / precessionYearsPerDegree);
         
         //theSunRotationSpringEquinox = theSun.transform.localEulerAngles;
-        theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(0f, targetEarthAngle, 0f));
+        //theSun.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(0f, targetEarthAngle, 0f));
         
-        theZodiac.transform.SetPositionAndRotation(theZodiac.transform.position, Quaternion.Euler(0f, targetZodiacAngle, 0f));
+        theZodiac.transform.SetPositionAndRotation(theZodiac.transform.position, Quaternion.Euler(0f, -targetZodiacAngle, 0f));
+
+        gotoSeason("Vernal Equinox");
+
+        setYear((int)Mathf.Floor(targetYear));
      }
+    public void newYear()
+    {
+        year++;
+    }
+    public void setYear(int yearsEllapsed)
+    {
+        year = yearsEllapsed; 
+    }
 }
