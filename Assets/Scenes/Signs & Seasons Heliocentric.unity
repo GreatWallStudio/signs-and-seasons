@@ -3402,7 +3402,8 @@ MonoBehaviour:
   theZodiac: {fileID: 1699594212}
   theZodiac2: {fileID: 728805263}
   theEarth: {fileID: 604950684}
-  theEarthOrigRotation: {x: 0, y: 0, z: 0, w: 0}
+  theEarthOrigRotation: {x: 0.1439965, y: 0.69228965, z: -0.1439965, w: 0.69228965}
+  earthRevolutionAmount: 0
   theEarthContainer: {fileID: 2145097761}
   theSun: {fileID: 1619577291}
   theMoon: {fileID: 2130221115}
@@ -5778,7 +5779,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604950684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.14399652, y: 0.6922897, z: -0.14399652, w: 0.6922897}
   m_LocalPosition: {x: 0, y: 0, z: 14.82}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -5788,7 +5789,7 @@ Transform:
   - {fileID: 1509370256}
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23.5}
+  m_LocalEulerAnglesHint: {x: 23.5, y: -90, z: 0}
 --- !u!1 &606078526
 GameObject:
   m_ObjectHideFlags: 0
@@ -13458,6 +13459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87b03fabb42e24094e49d32eb3d77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zodiacTransform: {fileID: 1699594213}
   timeController: {fileID: 361919069}
 --- !u!1001 &1624195850
 PrefabInstance:

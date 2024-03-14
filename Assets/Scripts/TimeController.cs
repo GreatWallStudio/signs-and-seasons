@@ -12,7 +12,8 @@ public class TimeController : MonoBehaviour
     [SerializeField] GameObject theZodiac; 
     [SerializeField] GameObject theZodiac2; 
     [SerializeField] GameObject theEarth;
-    [SerializeField] Quaternion theEarthOrigRotation; 
+    [SerializeField] Quaternion theEarthOrigRotation;
+    public float earthRevolutionAmount;
     [SerializeField] GameObject theEarthContainer; 
     [SerializeField] GameObject theSun;
     [SerializeField] GameObject theMoon;
@@ -39,7 +40,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] float targetZodiacAngle; 
     [SerializeField] float ageAngle;
     [SerializeField] float precessionYearsPerDegree;
-    [SerializeField] float precessionOfTheSunAngleInYear;
+    public float precessionOfTheSunAngleInYear;
     [SerializeField] float precessionOfTheSunAngleInDay;
     [SerializeField] float precessionOfTheSunAngleInHour;
     [SerializeField] float precessionOfTheSunAngleInMinute;
@@ -113,7 +114,8 @@ public class TimeController : MonoBehaviour
         earthAroundSunAngleInHour = earthAroundSunAngleInDay / 25;      // ...in one hour
         earthAroundSunAngleInMinute = earthAroundSunAngleInHour / 60;   // ...in one minute
         earthAroundSunAngleInSecond = earthAroundSunAngleInMinute / 60; // ...in one second
-        theEarthOrigRotation = theEarth.transform.rotation;
+        //theEarthOrigRotation = theEarth.transform.rotation;
+        theEarthOrigRotation = Quaternion.Euler(new Vector3(23.5f, 90f, 0));
 
         //store the solsticial and equinoctial position of earth...
         //these are the angles of the sun's rotation in degrees
@@ -165,11 +167,13 @@ void Update()
         theZodiac2.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
 
         //this rotates the sun, which rotates the earth's position
-        float earthRevolutionAmount = earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime; 
+        earthRevolutionAmount = earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime; 
         theSun.transform.Rotate(0, earthRevolutionAmount, 0);
 
-        //set the position of the earth but leave its rotation alone
+        //set the position of the earth but leave its y rotation alone
         theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, theEarth.transform.rotation);
+//        theEarth.transform.SetPositionAndRotation(theEarthContainer.transform.position, 
+//            Quaternion.Euler(new Vector3( theEarthOrigRotation.x, theEarth.transform.rotation.y, theEarthOrigRotation.z)));
 
         //when the earth gets to the equinoctial and solsticial points, show the hidden earths at those positions
         //eventually make this controlled by a button 
@@ -314,7 +318,7 @@ void Update()
     public void setTimeMultiplier (System.Single sliderValue)
     {
         timeMultiplier = 10 * Mathf.Exp(sliderValue); 
-        Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
+//        Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
     }
 
     public void gotoSeason(string season)
@@ -341,9 +345,14 @@ void Update()
         theEarth.transform.SetPositionAndRotation(new Vector3(theEarth.transform.position.x, theEarth.transform.position.y, theEarth.transform.position.z), theEarthOrigRotation);  
     }
 
-    public void goToYear(float targetYear)
+    public void goToYear(float goToYear)
     {
-        Debug.Log("targetYear: " + targetYear + "precessionYearsPerDegree:" + precessionYearsPerDegree + "targetZodiacAngle:" + targetZodiacAngle);
+        Debug.Log("targetYear: " + targetYear);
+        Debug.Log("precessionYearsPerDegree:" + precessionYearsPerDegree);
+        Debug.Log("targetZodiacAngle:" + targetZodiacAngle);
+        Debug.Log("goToYear:" + goToYear);
+        targetYear = (int) Mathf.Floor(goToYear); 
+
         // 1000 years
         // 1000 / 71.66666666666667 
         // = 13.95348837209302  //this many degrees at 1000 years

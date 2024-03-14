@@ -76,8 +76,8 @@ public class SASUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"bottomButton.transform.position.y = {bottomButton.transform.position.y} & " +
-            $"lowerButtonScrollLimit.transform.position.y = {lowerButtonScrollLimit.transform.position.y- 70}"); 
+//        Debug.Log($"bottomButton.transform.position.y = {bottomButton.transform.position.y} & " +
+//            $"lowerButtonScrollLimit.transform.position.y = {lowerButtonScrollLimit.transform.position.y- 70}"); 
 
         if (movingUp != 0 && bottomButton.transform.position.y < lowerButtonScrollLimit.transform.position.y + 40  )
         {
