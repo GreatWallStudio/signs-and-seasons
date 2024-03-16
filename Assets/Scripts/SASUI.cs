@@ -21,7 +21,8 @@ public class SASUI : MonoBehaviour
     [SerializeField] GameObject topButton;  
     [SerializeField] GameObject movingMenu;  
     [SerializeField] float movingUp;  
-    [SerializeField] float movingDown;  
+    [SerializeField] float movingDown;
+    public bool blurYear; 
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class SASUI : MonoBehaviour
 
         movingUp = 0;
         movingDown = 0;
+        blurYear = false; 
 
     }
 
@@ -42,11 +44,20 @@ public class SASUI : MonoBehaviour
     }
     public void updateYearsDisplay(int CountOfYears)
     {
-        displayYearsEllapsed.SetText("Years: " + CountOfYears.ToString());
+         if (blurYear)
+        {
+            displayYearsEllapsed.SetText("Years: -");
+        }
+        else
+        {
+            displayYearsEllapsed.SetText("Years: " + CountOfYears.ToString());
+        }
     }
     public void updateDaysDisplay(int CountOfDays)
     {
-        displayDaysEllapsed.SetText("Days: " + CountOfDays.ToString());
+
+            displayDaysEllapsed.SetText("Days: " + CountOfDays.ToString());
+
     }
     public void updateHoursDisplay(string hms)
     {
@@ -74,7 +85,7 @@ public class SASUI : MonoBehaviour
         movingDown = 0;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
 //        Debug.Log($"bottomButton.transform.position.y = {bottomButton.transform.position.y} & " +
 //            $"lowerButtonScrollLimit.transform.position.y = {lowerButtonScrollLimit.transform.position.y- 70}"); 

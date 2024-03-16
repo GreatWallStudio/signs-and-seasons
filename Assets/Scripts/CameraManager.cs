@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
         movingCameraSwitch = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (movingCamera)
         {

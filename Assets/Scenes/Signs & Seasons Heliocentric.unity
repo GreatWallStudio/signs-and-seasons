@@ -1962,7 +1962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &227104940
 Transform:
   m_ObjectHideFlags: 0
@@ -3414,7 +3414,7 @@ MonoBehaviour:
   theSunRotationAutumnalEquinox: {x: 0, y: 0, z: 0}
   theSunRotationWinterSolstice: {x: 0, y: 0, z: 0}
   SASuserInterface: {fileID: 2045549011}
-  timeMultiplier: 10966.332
+  timeMultiplier: 1484.1316
   year: 0
   targetYear: 0
   greatYear: 0
@@ -3508,6 +3508,7 @@ GameObject:
   - component: {fileID: 380770437}
   - component: {fileID: 380770436}
   - component: {fileID: 380770439}
+  - component: {fileID: 380770440}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3601,6 +3602,66 @@ MonoBehaviour:
   dayCameraTransform: {fileID: 1016414082}
   seasonCameraTransform: {fileID: 727405041}
   geocentricCameraTransform: {fileID: 807747644}
+--- !u!114 &380770440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380770435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 380770438}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &393762482
 GameObject:
   m_ObjectHideFlags: 0
@@ -10066,7 +10127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152397639}
   m_LocalRotation: {x: 0, y: 0.9063079, z: -0.42261827, w: 0}
-  m_LocalPosition: {x: -4.7, y: 22.2, z: 30.6}
+  m_LocalPosition: {x: -2.14, y: 22.2, z: 30.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13045,10 +13106,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 393762483}
   m_HandleRect: {fileID: 317506414}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 24
+  m_MinValue: 3
+  m_MaxValue: 22
   m_WholeNumbers: 1
-  m_Value: 7
+  m_Value: 5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -13358,7 +13419,8 @@ GameObject:
   - component: {fileID: 1619577293}
   - component: {fileID: 1619577292}
   - component: {fileID: 1619577296}
-  m_Layer: 0
+  - component: {fileID: 1619577297}
+  m_Layer: 3
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13459,8 +13521,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d87b03fabb42e24094e49d32eb3d77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zodiacTransform: {fileID: 1699594213}
   timeController: {fileID: 361919069}
+  zodiacTransform: {fileID: 1699594213}
+  sASUI: {fileID: 2045549011}
+--- !u!114 &1619577297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619577291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: e026c8b5274a12c49a55cc945f3d479c, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1001 &1624195850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15843,6 +15923,7 @@ MonoBehaviour:
   movingMenu: {fileID: 495209515}
   movingUp: 0
   movingDown: 0
+  blurYear: 0
 --- !u!114 &2045549012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15954,7 +16035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -66.99927, y: 0}
+  m_AnchoredPosition: {x: -66.99921, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2055542390

@@ -39,7 +39,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] float targetEarthAngle; 
     [SerializeField] float targetZodiacAngle; 
     [SerializeField] float ageAngle;
-    [SerializeField] float precessionYearsPerDegree;
+    public float precessionYearsPerDegree;
     public float precessionOfTheSunAngleInYear;
     [SerializeField] float precessionOfTheSunAngleInDay;
     [SerializeField] float precessionOfTheSunAngleInHour;
@@ -241,8 +241,8 @@ void Update()
 
         SASuserInterface.updateHoursDisplay(hh);
 
-        if (theZodiac.transform.eulerAngles.y < 0.008f)
-        { 
+        //if (theZodiac.transform.eulerAngles.y < 0.008f)
+        //{ 
             int ageCalc = (int)Mathf.Floor(year / age) + 1;
             //always is zero.  See comment 3 lines above
             //SASuserInterface.updateAgeDisplay((int)Mathf.Floor(year / greatYear));
@@ -263,10 +263,9 @@ void Update()
             if (ageCalc == 12) { ageName = "Taurus"; }
 
             SASuserInterface.updateAgeNameDisplay(ageName);
-        }
+        //}
 
         SASuserInterface.updateYearsDisplay(year);
-
     }
 
     public void instantiateSeasonalEarths()
@@ -317,8 +316,8 @@ void Update()
 
     public void setTimeMultiplier (System.Single sliderValue)
     {
-        timeMultiplier = 10 * Mathf.Exp(sliderValue); 
-//        Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");
+        timeMultiplier = 10 * Mathf.Exp(sliderValue);
+        //        Debug.Log($"timeMultiplier {timeMultiplier} and sliderValue = {sliderValue}");\
     }
 
     public void gotoSeason(string season)
