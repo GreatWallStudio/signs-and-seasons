@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class TimeController : MonoBehaviour
 {
+    [SerializeField] Slider ageSlider;
     [SerializeField] GameObject sliderObject;
     [SerializeField] Slider sliderComponent;
     [SerializeField] float sliderValue;
@@ -165,6 +166,9 @@ void Update()
         //this rotates the zodiac, which rotates the zodiac's position
         theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
         theZodiac2.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
+        
+        //ageSlider
+
 
         //this rotates the sun, which rotates the earth's position
         earthRevolutionAmount = earthAroundSunAngleInSecond * timeMultiplier * Time.deltaTime; 

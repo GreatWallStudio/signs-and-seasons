@@ -25,6 +25,17 @@ public class CameraManager : MonoBehaviour
         movingCameraSwitch = false;
     }
 
+    //private void FixedUpdate()
+    //{
+    //    // Calculate and set camera position
+    //    Vector3 desiredPosition = this.target.TransformPoint(0, this.height, -this.distance);
+    //    this.transform.position = Vector3.Lerp(this.transform.position, desiredPosition, Time.deltaTime * this.damping);
+
+    //    // Calculate and set camera rotation
+    //    Quaternion desiredRotation = Quaternion.LookRotation(this.target.position - this.transform.position, this.target.up);
+    //    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, desiredRotation, Time.deltaTime * this.rotationDamping);
+    //}
+
     private void LateUpdate()
     {
         if (movingCamera)
