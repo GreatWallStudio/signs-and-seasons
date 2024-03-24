@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] Transform dayCameraTransform;
     [SerializeField] Transform seasonCameraTransform;
     [SerializeField] Transform geocentricCameraTransform;
+    [SerializeField] Camera thisCamera; 
     private Transform activeCameraTransform;
     private string cameraPositon; 
     private bool movingCamera; 
@@ -23,6 +24,7 @@ public class CameraManager : MonoBehaviour
         transform.SetPositionAndRotation(overheadCameraTransform.transform.position, overheadCameraTransform.transform.rotation);
         movingCamera = false;
         movingCameraSwitch = false;
+        thisCamera.fieldOfView = 60;
     }
 
     //private void FixedUpdate()
@@ -35,6 +37,16 @@ public class CameraManager : MonoBehaviour
     //    Quaternion desiredRotation = Quaternion.LookRotation(this.target.position - this.transform.position, this.target.up);
     //    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, desiredRotation, Time.deltaTime * this.rotationDamping);
     //}
+    private void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            thisCamera.fieldOfView -= 0.1f;
+        } else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            thisCamera.fieldOfView += 0.1f;
+        }
+    }
 
     private void LateUpdate()
     {

@@ -163,6 +163,10 @@ void Update()
         ////time in seconds since the start of the game
         //second = Time.fixedUnscaledTime;
 
+        //set the position of the zodiac but leave its y rotation alone
+        //theZodiac.transform.SetPositionAndRotation(theEarthContainer.transform.position, Quaternion.Euler(new Vector3(0, theZodiac.transform.rotation.y, 0)));
+//        theZodiac.transform.SetPositionAndRotation(theSun.transform.position, Quaternion.Euler(new Vector3(0, theZodiac.transform.rotation.y, 0)));
+
         //this rotates the zodiac, which rotates the zodiac's position
         theZodiac.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
         theZodiac2.transform.Rotate(0, precessionOfTheSunAngleInSecond * timeMultiplier * Time.deltaTime, 0);
