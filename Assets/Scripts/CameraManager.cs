@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
         cameraPositon = "Overhead";
         transform.SetPositionAndRotation(overheadCameraTransform.transform.position, overheadCameraTransform.transform.rotation);
         movingCamera = false;
-        movingCameraSwitch = false;
+        movingCameraSwitch = true;
         thisCamera.fieldOfView = 60;
     }
 

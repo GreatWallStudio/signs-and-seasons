@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0168c11f4ef0f414eac8fadf68edf14e
+guid: b0eed01c4dfdc6c478cb3b7656225dc1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,12 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mat
-    second: {fileID: 2100000, guid: 29cacf744fc613b459f0bde49d4b599e, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Mat_diffuse
-    second: {fileID: 2800000, guid: 7d15b63829236d944bb458922a91ccee, type: 3}
+    second: {fileID: 2100000, guid: bb15a5289ff2eb6458c15ead44c265c9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
