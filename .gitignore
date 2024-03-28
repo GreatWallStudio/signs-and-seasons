@@ -70,3 +70,5 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Astronomy Experiment/Earth/newEarth/tex/RS Standard_diffuse_color.tif
+Assets/Astronomy Experiment/Earth/newEarth/tex/RS Standard_normal_map.tif
